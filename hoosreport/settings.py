@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','project-b-01-d00b72518ac8.herokuapp.co
 
 # Application definition
 
-SITE_1 = 1
+SITE_ID = 2
 
 INSTALLED_APPS = [
     'django.contrib.admin',
