@@ -1,0 +1,15 @@
+{
+    "web": {
+      "client_id": "1038765726436-gmd8ti3e0r3ejqlmn82iou6ucs0euboa.apps.googleusercontent.com",
+      "project_id": "hoosreport-415011",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_secret": "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",
+      "redirect_uris": [
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:8000/accounts/google/login/callback/"
+      ]
+    }
+  }
+  
