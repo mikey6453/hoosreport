@@ -31,7 +31,9 @@ To run the application locally on your machine, follow these steps:
 
 4. **Configure the Site in Django Admin Settings**
 
-    In the Django admin, create a new site with the Domain Name set to http://127.0.0.1:8000/ and ensure the site ID is set to 2.
+    1. In the Django admin, create a new site with the Domain Name set to http://127.0.0.1:8000/ and ensure the site ID is set to 2.
+    2. Create a social account with provider set to Google. Client ID/Secret key information is on OAuth.json
+
 
 5. **Run the Program**
 
