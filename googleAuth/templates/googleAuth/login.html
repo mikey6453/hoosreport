@@ -1,0 +1,25 @@
+{% include 'googleAuth/navbar.html' %} {% load bootstrap5 %} {% bootstrap_css %}
+{% bootstrap_javascript %} {% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoosReport Google Sign In</title>
+  </head>
+  <body>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="min-height: 90vh"
+    >
+      <div class="text-center">
+        <div class="fs-1 mb-3">Login with Google</div>
+        <a
+          href="{% provider_login_url 'google' %}?next=/"
+          class="btn btn-primary"
+          >Login</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
