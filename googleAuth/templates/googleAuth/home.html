@@ -1,15 +1,37 @@
-{% include 'googleAuth/navbar.html' %} {% load django_bootstrap5 %} {% bootstrap_css %}
+{% include 'googleAuth/navbar.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
 {% bootstrap_javascript %}
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HoosReport</title>
-  </head>
-  <body>
-    <div>
-      <div class="d-flex justify-content-center">Home Page</div>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HoosReport</title>
+  <style>
+    body {
+      background-color: #2a69a8; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    }
+    .main-section {
+      min-height: 90vh; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: #adb9c2; 
+      color: #333; 
+    }
+    .main-section h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-section">
+    <h1>HoosReport</h1>
+  </div>
+</body>
 </html>
