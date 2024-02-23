@@ -1,19 +1,23 @@
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-      </ul>
+{% load django_bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {%if user.is_authenticated %}
+<nav>
+  <div class="d-flex mt-2">
+    <div class="d-flex ms-2 mt-10">
+      <a href="/" class="btn btn-primary">Home</a>
+    </div>
+    <div class="d-flex ms-auto me-2">
+      <a href="/logout" class="btn btn-primary">Logout</a>
     </div>
   </div>
 </nav>
+{% else %}
+<nav>
+  <div class="d-flex mt-2">
+    <div class="d-flex ms-2 mt-10" >
+      <a href="/" class="btn btn-primary">Home</a>
+    </div>
+    <div class="d-flex ms-auto me-2">
+      <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+</nav>
+{% endif %}
