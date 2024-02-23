@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 
 def home(request):
-    return render(request, "googleAuth/home.html")
+    user = request.user
+    return render(request, "googleAuth/home.html", {'user': user})
 
 def login_view(request):
     return render(request, "googleAuth/login.html")
 
 def logout_view(request):
     logout(request)
-    return redirect("/")
+    return render(request, "googleAuth/signedout.html")
 
 
 
