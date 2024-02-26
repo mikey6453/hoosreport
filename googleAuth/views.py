@@ -10,9 +10,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    # Update the URL to include your application's login URL after logging out from Google
-    google_logout_url = 'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://project-b-01-d00b72518ac8.herokuapp.com/login_view'
-    return redirect(google_logout_url)
+    return render(request, "googleAuth/signedout.html")
 
 
 
