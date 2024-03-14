@@ -173,7 +173,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-# LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "r23r2ws"
 # LOGOUT_REDIRECT_URL = "/"
 
 # AWS_ACCESS_KEY_ID = 'AKIA47CRZRQFRB5UAKKF'
