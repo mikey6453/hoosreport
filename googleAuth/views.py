@@ -12,5 +12,6 @@ def logout_view(request):
     logout(request)
     return render(request, "googleAuth/signedout.html")
 
-
+def report_view(request):
+    return render(request, "googleAuth/report.html")
 
