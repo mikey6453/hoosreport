@@ -6,7 +6,7 @@ def home(request):
     return render(request, "googleAuth/home.html", {'user': user})
 
 def login_view(request):
-    return render(request, "googleAuth/login.html")
+    return render(request, "socialaccount/login.html")
 
 def logout_view(request):
     logout(request)

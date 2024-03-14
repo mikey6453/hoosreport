@@ -1,31 +1,26 @@
-{% extends "socialaccount/base_entrance.html" %}
-{% load i18n %}
-{% load allauth %}
-{% block head_title %}
-    {% trans "Sign In" %}
-{% endblock head_title %}
-{% block content %}
-    {% if process == "connect" %}
-        {% element h1 %}
-            {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
-        {% endelement %}
-        <p>
-            {% blocktrans with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
-        </p>
-    {% else %}
-        {% element h1 %}
-            {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
-        {% endelement %}
-        <p>
-            {% blocktrans with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
-        </p>
-    {% endif %}
-    {% element form method="post" no_visible_fields=True %}
-        {% slot actions %}
-            {% csrf_token %}
-            {% element button type="submit" %}
-                {% trans "Continue" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-{% endblock content %}
+{% include 'googleAuth/navbar.html' %} {% load django_bootstrap5 %} {% bootstrap_css %}
+{% bootstrap_javascript %} {% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoosReport Google Sign In</title>
+  </head>
+  <body>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="min-height: 90vh"
+    >
+      <div class="text-center">
+        <div class="fs-1 mb-3">Login with Google</div>
+        <a
+          href="{% provider_login_url 'google' %}?next=/"
+          class="btn btn-primary"
+          >Login</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
+
