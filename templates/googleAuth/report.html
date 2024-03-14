@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Submission</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="drag-image">
+    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+    <h6>Drag & Drop File Here</h6>
+    <span>OR</span>
+    <button>Browse File</button>
+    <input type="file" hidden>
+  </div>
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
