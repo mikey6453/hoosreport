@@ -173,22 +173,22 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+# LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "/"
 
-AWS_ACCESS_KEY_ID = 'AKIA47CRZRQFRB5UAKKF'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'b-01bucket'
-AWS_S3_REGION_NAME = 'us-east-1'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_STATIC_LOCATION = 'static'
-STATICFILES_STORAGE = 'hoosreport.storage_backends.StaticStorage'
-AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
-DEFAULT_FILE_STORAGE = 'hoosreport.storage_backends.PublicMediaStorage'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+# AWS_ACCESS_KEY_ID = 'AKIA47CRZRQFRB5UAKKF'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'b-01bucket'
+# AWS_S3_REGION_NAME = 'us-east-1'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_STATIC_LOCATION = 'static'
+# STATICFILES_STORAGE = 'hoosreport.storage_backends.StaticStorage'
+# AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+# DEFAULT_FILE_STORAGE = 'hoosreport.storage_backends.PublicMediaStorage'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
 
 
 

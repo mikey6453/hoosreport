@@ -10,7 +10,7 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #FC6E74;
+  background: #333;
 }
 .drag-image{
   border: 1px dashed #fff;
@@ -57,7 +57,7 @@ body{
 
 .drag-image button:hover{
     background-color:#fff;
-    color:red;
+    color:#333;
 }
 
 .drag-image img{

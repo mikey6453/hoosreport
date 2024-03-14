@@ -1,5 +1,7 @@
+{% load static %}
 {% load django_bootstrap5 %} 
-{% bootstrap_css %} 
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}"> 
 {% bootstrap_javascript %}
 
 {% if user.is_authenticated %}
