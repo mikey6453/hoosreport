@@ -15,3 +15,6 @@ def logout_view(request):
 def report_view(request):
     return render(request, "googleAuth/report.html")
 
+def signup_view(request):
+    return render(request, "socialaccount/signup.html")
+
