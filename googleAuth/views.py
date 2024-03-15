@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
-from django.http import HttpResponseRedirect
+from .forms import CustomUserCreationForm
 
 def home(request):
     user = request.user
@@ -37,5 +37,20 @@ def report_view(request):
     return render(request, "googleAuth/report.html")
 
 def signup_view(request):
-    return render(request, "socialaccount/signup.html")
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Optionally, log the user in directly after signing up
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')  # Adjust the redirection as needed
+        else:
+            # Return the form with errors
+            return render(request, "googleAuth/signup.html", {'form': form})
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "googleAuth/signup.html", {'form': form})
 
