@@ -57,3 +57,5 @@ def signup_view(request):
 def uploads_view(request):
     return render(request, "googleAuth/uploads.html")
 
+
+
