@@ -1,0 +1,70 @@
+{% include 'googleAuth/navbar.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load socialaccount %}
+{% load static %}
+
+<script src="https://kit.fontawesome.com/8c1592e798.js" crossorigin="anonymous"></script>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                     class="img-fluid" alt="Phone image">
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Display non-field-specific errors here -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Username input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" name="username" id="username" class="form-control form-control-lg" autocomplete="username" required value="{{ form.username.value|default_if_none:'' }}"/>
+                        <label class="form-label" for="username">Username</label>
+                        {% if form.username.errors %}
+                            <div class="alert alert-danger">{{ form.username.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" name="email" id="email" class="form-control form-control-lg" autocomplete="email" required value="{{ form.email.value|default_if_none:'' }}"/>
+                        <label class="form-label" for="email">Email</label>
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger">{{ form.email.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" name="password1" id="password1" class="form-control form-control-lg" autocomplete="new-password" required/>
+                        <label class="form-label" for="password1">Password</label>
+                        {% if form.password1.errors %}
+                            <div class="alert alert-danger">{{ form.password1.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Password Confirmation input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" name="password2" id="password2" class="form-control form-control-lg" autocomplete="new-password" required/>
+                        <label class="form-label" for="password2">Confirm Password</label>
+                        {% if form.password2.errors %}
+                            <div class="alert alert-danger">{{ form.password2.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

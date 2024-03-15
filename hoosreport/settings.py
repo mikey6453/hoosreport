@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     'django_bootstrap5',
+    'storages',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -88,7 +89,7 @@ ROOT_URLCONF = 'hoosreport.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -155,9 +156,9 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+   os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -175,6 +176,23 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+# AWS_ACCESS_KEY_ID = 'AKIA47CRZRQFRB5UAKKF'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'b-01bucket'
+# AWS_S3_REGION_NAME = 'us-east-1'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_STATIC_LOCATION = 'static'
+# STATICFILES_STORAGE = 'hoosreport.storage_backends.StaticStorage'
+# AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+# DEFAULT_FILE_STORAGE = 'hoosreport.storage_backends.PublicMediaStorage'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+
+
+
+
 # Activate Django-Heroku.
 # Use this code to avoid the psycopg2 / django-heroku error!  
 # Do NOT import django-heroku above!
@@ -184,3 +202,5 @@ try:
         django_heroku.settings(locals())
 except ImportError:
     found = False
+
+
