@@ -1,33 +1,37 @@
-{% extends "socialaccount/base_entrance.html" %}
 {% load i18n %}
 {% load allauth %}
-{% block head_title %}
-    {% trans "Signup" %}
-{% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Sign Up" %}
-    {% endelement %}
-    <p>
-        {% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
-{{site_name}}. As a final step, please complete the following form:{% endblocktrans %}
-    </p>
-    {% url 'socialaccount_signup' as action_url %}
-    {% element form form=form method="post" action=action_url %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" %}
-                {% trans "Sign Up" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-{% endblock content %}
+{% load django_bootstrap5 %}
+{% load socialaccount %}
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% include 'googleAuth/navbar.html' %}
+<script src="https://kit.fontawesome.com/8c1592e798.js" crossorigin="anonymous"></script>
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <form method="post" action="{% url 'socialaccount_signup' %}">
+          {% csrf_token %}
+          <div class="form-outline mb-4">
+            <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" autocomplete="username" required/>
+            <label class="form-label" for="form1Example13">{% trans "Choose Your Username" %}</label>
+          </div>
+          
+          <!-- Include additional fields as necessary -->
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary btn-lg btn-block">{% trans "Sign Up" %}</button>
+        </form>
+    </div>
+  </div>
+</section>
