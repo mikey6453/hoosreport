@@ -54,3 +54,8 @@ def signup_view(request):
         form = CustomUserCreationForm()
     return render(request, "googleAuth/signup.html", {'form': form})
 
+def uploads_view(request):
+    return render(request, "googleAuth/uploads.html")
+
+
+
