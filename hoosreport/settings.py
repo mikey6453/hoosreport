@@ -201,12 +201,11 @@ STORAGES = {
         "OPTIONS": {
             "bucket_name": AWS_STORAGE_BUCKET_NAME,
             "region_name": AWS_S3_REGION_NAME,
-            "custom_domain": f'{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}',
         },
         "LOCATION": AWS_STATIC_LOCATION,
     },
 }
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
 AWS_S3_FILE_OVERWRITE = False
