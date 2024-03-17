@@ -3,6 +3,8 @@ from django.contrib.auth import logout, authenticate, login
 from .forms import CustomUserCreationForm
 import boto3
 from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     user = request.user
@@ -56,18 +58,21 @@ def signup_view(request):
         form = CustomUserCreationForm()
     return render(request, "googleAuth/signup.html", {'form': form})
 
-def uploads_view(request):
-    return render(request, "googleAuth/uploads.html")
-
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
 # Create an S3 client
 s3_client = boto3.client(
     's3',
     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
 )
+
+def uploads_view(request):
+    bucket_name = 'project-b-01'
+    response = s3_client.list_objects_v2(Bucket=bucket_name)
+    files = []
+    if 'Contents' in response:
+        files = [obj['Key'] for obj in response['Contents']]
+
+    return render(request, 'googleAuth/uploads.html', {'files': files})
 
 @csrf_exempt
 def submitted_report_view(request):
