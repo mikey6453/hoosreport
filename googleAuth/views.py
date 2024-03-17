@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
 from .forms import CustomUserCreationForm
+import boto3
+from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     user = request.user
@@ -53,4 +57,37 @@ def signup_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, "googleAuth/signup.html", {'form': form})
+
+# Create an S3 client
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+)
+
+def uploads_view(request):
+    bucket_name = 'project-b-01'
+    response = s3_client.list_objects_v2(Bucket=bucket_name)
+    files = []
+    if 'Contents' in response:
+        files = [obj['Key'] for obj in response['Contents']]
+
+    return render(request, 'googleAuth/uploads.html', {'files': files})
+
+@csrf_exempt
+def submitted_report_view(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+        file_name = file.name
+        
+        # Upload the file to AWS S3 bucket
+        try:
+            s3_client.upload_fileobj(file, 'project-b-01', file_name)
+            return JsonResponse({'message': 'File uploaded successfully!'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+        
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
 

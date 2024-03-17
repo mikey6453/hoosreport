@@ -35,19 +35,29 @@ dropArea.addEventListener("drop", (event)=>{
 });
 
 function viewfile(){
-  let fileType = file.type; 
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-  if(validExtensions.includes(fileType)){ 
-    let fileReader = new FileReader(); 
-    fileReader.onload = ()=>{
-      let fileURL = fileReader.result; 
-       let imgTag = `<img src="${fileURL}" alt="image">`;
-      dropArea.innerHTML = imgTag; 
+    let fileType = file.type; 
+    let validExtensions = ["image/jpeg", "image/jpg", "application/pdf", "text/plain"];
+    if(validExtensions.includes(fileType)){ 
+      let formData = new FormData();
+      formData.append('file', file);
+
+      document.getElementById('fileName').textContent = file.name;
+  
+      fetch('/submitted_report/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate', 
+          'Pragma': 'no-cache', 
+          'Expires': '0'
+        }
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+    }else{
+      alert("Invalid file type!");
     }
-    fileReader.readAsDataURL(file);
-  }else{
-    alert("This is not an Image File!");
-    dropArea.classList.remove("active");
-    dragText.textContent = "Drag & Drop to Upload File";
   }
-}
+
+  

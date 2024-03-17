@@ -176,19 +176,40 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-# AWS_ACCESS_KEY_ID = 'AKIA47CRZRQFRB5UAKKF'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'b-01bucket'
-# AWS_S3_REGION_NAME = 'us-east-1'
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_STATIC_LOCATION = 'static'
-# STATICFILES_STORAGE = 'hoosreport.storage_backends.StaticStorage'
-# AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
-# DEFAULT_FILE_STORAGE = 'hoosreport.storage_backends.PublicMediaStorage'
-# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+# Amazon S3 Buckets Configurations
+
+AWS_ACCESS_KEY_ID = 'AKIAS45UCTENS4CXUIEG'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'project-b-01'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_STATIC_LOCATION = 'static'
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "region_name": AWS_S3_REGION_NAME,
+            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "region_name": AWS_S3_REGION_NAME,
+        },
+        "LOCATION": AWS_STATIC_LOCATION,
+    },
+}
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = None
 
 
 
