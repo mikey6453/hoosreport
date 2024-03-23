@@ -1,16 +1,79 @@
+{% load static %}
+{% include 'googleAuth/navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Files</title>
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background for a softer look */
+        }
+        .container {
+            padding-top: 2rem; /* Adds some space on the top */
+        }
+        .list-group-item {
+            transition: transform .2s; /* Animation for hover effect */
+        }
+        .list-group-item:hover {
+            transform: scale(1.02); /* Slightly scale up list items on hover */
+            background-color: #e9ecef; /* Lighter background on hover */
+        }
+    </style>
 </head>
 <body>
-    <h1>List of Files</h1>
-    <ul>
-        {% for file in files %}
-            <li>{{ file }}</li>
-        {% endfor %}
-    </ul>
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% bootstrap_javascript %}
+
+{% if user.is_authenticated %}
+<nav>
+  <div class="d-flex mt-2">
+    <div class="d-flex ms-2 mt-10">
+      <a href="/" class="btn btn-primary">Home</a>
+    </div>
+    <div class="d-flex align-items-center ms-auto">
+      <span class="me-2 text-white fw-bold">Hello, {{ user.username }}!</span>
+      {% if user.is_superuser %}
+        <span class="badge bg-success me-2 fw-bold">Admin</span>
+      {% else %}
+        <span class="badge bg-info me-2 fw-bold">User</span>
+      {% endif %}
+
+      <a href="/logout" class="btn btn-primary">Logout</a>
+    </div>
+  </div>
+</nav>
+{% else %}
+<nav>
+  <div class="d-flex mt-2">
+    <div class="d-flex ms-2 mt-10">
+      <a href="/" class="btn btn-primary">Home</a>
+    </div>
+    <div class="d-flex ms-2 mt-10">
+      <a href="/signup" class="btn btn-primary">Sign Up</a>
+    </div>
+    <div class="d-flex ms-auto me-2">
+      <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+</nav>
+{% endif %}
+    <div class="container">
+        <h1 class="mb-4 text-center">List of Files</h1>
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                {% for file in files %}
+                <li class="list-group-item">{{ file }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
