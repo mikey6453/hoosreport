@@ -70,7 +70,11 @@ def uploads_view(request):
     response = s3_client.list_objects_v2(Bucket=bucket_name)
     files = []
     if 'Contents' in response:
-        files = [obj['Key'] for obj in response['Contents']]
+        for obj in response['Contents']:
+            file_name = obj['Key']
+            # Fetch status from S3 object metadata
+            status = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata'].get('status', 'None')
+            files.append({'name': file_name, 'status': status})
 
     return render(request, 'googleAuth/uploads.html', {'files': files})
 
@@ -79,10 +83,13 @@ def submitted_report_view(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
         file_name = file.name
+
+        status = 'New'
         
         # Upload the file to AWS S3 bucket
         try:
-            s3_client.upload_fileobj(file, 'project-b-01', file_name)
+            metadata = {'status': status}
+            s3_client.upload_fileobj(file, 'project-b-01', file_name, ExtraArgs={'Metadata': metadata})
             return JsonResponse({'message': 'File uploaded successfully!'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)

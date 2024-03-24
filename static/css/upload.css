@@ -6,11 +6,11 @@ nav {
     z-index: 10; /* Ensures navbar is above other content */
     background-color: #2a69a8; /* Bootstrap primary color, adjust as needed */
   }
-  
+
   nav .d-flex {
     padding: 0.15rem 1rem; /* Adjust padding as needed */
   }
-  
+
   /* Adjustments for the rest of the page content */
   body {
     padding-top: 4rem; /* Adjust this value based on the actual height of your navbar */
