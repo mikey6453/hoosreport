@@ -80,6 +80,9 @@ def uploads_view(request):
         for obj in response['Contents']:
             file_name = obj['Key']
 
+            if file_name.startswith('admin/') or file_name.startswith('css/') or file_name.startswith('js/'):
+                continue
+
             # Fetch status from S3 object metadata
             metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
             status = metadata.get('status', 'None')
