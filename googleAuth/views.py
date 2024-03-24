@@ -137,7 +137,7 @@ def submitted_report_view(request):
                     text_file_name = f"text_submission_{submission_id}.txt"
                     s3_client.upload_fileobj(text_file, 'project-b-01', text_file_name, ExtraArgs={'Metadata': metadata})
 
-                return redirect('home');
+                return redirect('home')
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=500)
         else:

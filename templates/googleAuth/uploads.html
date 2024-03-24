@@ -47,21 +47,25 @@
                         <div class="col"><b>Status</b></div>
                         <div class="col"><b>User ID</b></div>
                         <div class="col"><b>Username</b></div>
+                        <div class="col"><b>View Report</b></div>
                     </div>
                 </li>
 
                 <!-- File data -->
                 {% for submission_id, submission_files in files.items %}
                 <li class="list-group-item">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12 mb-3"><b>Submission ID: {{ submission_id }}</b></div>
-                    </div>
+                    </div> -->
                     {% for file in submission_files %}
                     <div class="row">
                         <div class="col">{{ file.name }}</div>
                         <div class="col">{{ file.status }}</div>
                         <div class="col">{{ file.user_id }}</div>
                         <div class="col">{{ file.username }}</div>
+                        <div class="col text-end">
+                            <button type="button" class="btn btn-primary btn-sm">View Report</button>
+                        </div>
                     </div>
                     {% endfor %}
                 </li>
