@@ -21,7 +21,7 @@
             transition: transform .2s; /* Animation for hover effect */
         }
         .list-group-item:hover {
-            transform: scale(1.02); /* Slightly scale up list items on hover */
+            transform: scale(1.01); /* Slightly scale up list items on hover */
             background-color: #e9ecef; /* Lighter background on hover */
         }
         /* Align status to the right */
@@ -36,50 +36,36 @@
 {% bootstrap_css %}
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 {% bootstrap_javascript %}
-
-{% if user.is_authenticated %}
-<nav>
-  <div class="d-flex mt-2">
-    <div class="d-flex ms-2 mt-10">
-      <a href="/" class="btn btn-primary">Home</a>
-    </div>
-    <div class="d-flex align-items-center ms-auto">
-      <span class="me-2 text-white fw-bold">Hello, {{ user.username }}!</span>
-      {% if user.is_superuser %}
-        <span class="badge bg-success me-2 fw-bold">Admin</span>
-      {% else %}
-        <span class="badge bg-info me-2 fw-bold">User</span>
-      {% endif %}
-
-      <a href="/logout" class="btn btn-primary">Logout</a>
-    </div>
-  </div>
-</nav>
-{% else %}
-<nav>
-  <div class="d-flex mt-2">
-    <div class="d-flex ms-2 mt-10">
-      <a href="/" class="btn btn-primary">Home</a>
-    </div>
-    <div class="d-flex ms-2 mt-10">
-      <a href="/signup" class="btn btn-primary">Sign Up</a>
-    </div>
-    <div class="d-flex ms-auto me-2">
-      <a href="/login" class="btn btn-primary">Login</a>
-    </div>
-  </div>
-</nav>
-{% endif %}
     <div class="container">
         <h1 class="mb-4 text-center">List of Files</h1>
         <div class="card">
             <ul class="list-group list-group-flush">
-                {% for file in files %}
+                <!-- Column headers -->
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col">{{ file.name }}</div>
-                        <div class="col status-column">{{ file.status }}</div>
+                        <div class="col"><b>File Name</b></div>
+                        <div class="col"><b>Status</b></div>
+                        <div class="col"><b>Submission ID</b></div>
+                        <div class="col"><b>User ID</b></div>
+                        <div class="col"><b>Username</b></div>
                     </div>
+                </li>
+
+                <!-- File data -->
+                {% for submission_id, submission_files in files.items %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-12 mb-3"><b>Submission ID: {{ submission_id }}</b></div>
+                    </div>
+                    {% for file in submission_files %}
+                    <div class="row">
+                        <div class="col">{{ file.name }}</div>
+                        <div class="col">{{ file.status }}</div>
+                        <div class="col">{{ file.submission_id }}</div>
+                        <div class="col">{{ file.user_id }}</div>
+                        <div class="col">{{ file.username }}</div>
+                    </div>
+                    {% endfor %}
                 </li>
                 {% endfor %}
             </ul>
@@ -87,3 +73,4 @@
     </div>
 </body>
 </html>
+
