@@ -64,7 +64,9 @@
                         <div class="col">{{ file.user_id }}</div>
                         <div class="col">{{ file.username }}</div>
                         <div class="col text-end">
-                            <button type="button" class="btn btn-primary btn-sm">View Report</button>
+                            <div class="d-flex ms-auto me-2">
+                                <a href="/fileview" class="btn btn-primary btn-sm">View Report</a>
+                              </div>
                         </div>
                     </div>
                     {% endfor %}
