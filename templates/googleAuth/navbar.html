@@ -12,7 +12,11 @@
     </div>
     {% if user.is_superuser %}
     <div class="d-flex ms-2 mt-10">
-      <a href="/uploads" class="btn btn-primary">View Files</a>
+      <a href="/uploads" class="btn btn-primary">View All Submissions</a>
+    </div>
+    {% else %}
+    <div class="d-flex ms-2 mt-10">
+      <a href="/view_submissions" class="btn btn-primary">View Your Submissions</a>
     </div>
     {% endif %}
     <div class="d-flex align-items-center ms-auto">

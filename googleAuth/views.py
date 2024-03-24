@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
 from django.views.decorators.http import require_POST
@@ -142,3 +143,37 @@ def submitted_report_view(request):
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
+
+@login_required
+def view_submissions(request):
+    bucket_name = 'project-b-01'
+    response = s3_client.list_objects_v2(Bucket=bucket_name)
+    files = {}
+
+    if 'Contents' in response:
+        for obj in response['Contents']:
+            file_name = obj['Key']
+
+            # Fetch status from S3 object metadata
+            metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
+            status = metadata.get('status', 'None')
+            user_id = metadata.get('user_id', 'None')
+            username = metadata.get('username', 'None')
+            submission_id = metadata.get('submission_id', 'None')
+
+            # print(request.user.id)
+            # print(request.user.username)
+
+            # Check if the file belongs to the current user
+            if user_id == str(request.user.id) and username == request.user.username:
+                if submission_id not in files:
+                    files[submission_id] = []
+
+                files[submission_id].append({
+                    'name': file_name,
+                    'status': status,
+                    'user_id': user_id,
+                    'username': username
+                })
+
+    return render(request, 'googleAuth/view_submissions.html', {'files': files})
