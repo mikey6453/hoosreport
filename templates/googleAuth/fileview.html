@@ -29,7 +29,7 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    .upload-button {
+    .upload-button, .view-file-button {
       display: inline-block;
       padding: 10px 20px;
       background-color: #007bff;
@@ -37,10 +37,9 @@
       border-radius: 5px;
       cursor: pointer;
       margin-left: 10px; /* Add left margin for centering */
+      text-decoration: none; /* Remove underline from links */
     }
-    .upload-button:hover {
-      background-color: #0056b3;
-    }
+
     #fileInput {
       display: none;
     }
@@ -70,30 +69,24 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #0056b3;
-    }
   </style>
 </head>
 <body>
   <div class="report-container">
     <h1>{{ file_name }}</h1>
-
     <!-- Form for both file upload and text submission -->
     <form id="submissionForm" action="{% url 'submitted_report' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="drag-image">
-        <label for="fileInput" id="fileInputLabel" class="upload-button">
-            <div class="icon"><i class="fas fa-file"></i></div>
-            View File            
-        </label>
-        <input type="file" name="file" id="fileInput" style="display: none;" multiple onchange="displayFileNames()">
+        <a href="{{ file_url }}" target="_blank" class="view-file-button">
+            <i class="fas fa-file"></i> View File
+        </a>        
         <span id="fileNames"></span>
       </div>
-      <textarea name="text" id="textInput" rows="4" placeholder="Enter your text here"></textarea>
+      <textarea name="text" id="textInput" rows="4" placeholder="Provide Comments"></textarea>
       <button type="button" onclick="submitForm()">Resolve File</button>
     </form>
-    
+
   </div>
   <script>
   </script>

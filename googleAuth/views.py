@@ -183,5 +183,15 @@ def view_submissions(request):
 
 
 def fileview_view(request, file_name):
-    context = {'file_name': file_name}
+    """
+    Generates a presigned URL for the file to be viewed directly in the browser.
+    """
+    # Generate the presigned URL with an inline content disposition
+    file_url = s3_client.generate_presigned_url('get_object',
+                                                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
+                                                        'Key': file_name,
+                                                        'ResponseContentDisposition': 'inline'},
+                                                ExpiresIn=3600)  # URL expires in 1 hour
+
+    context = {'file_name': file_name, 'file_url': file_url}
     return render(request, 'googleAuth/fileview.html', context)
