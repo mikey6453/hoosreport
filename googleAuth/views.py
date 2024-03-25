@@ -84,13 +84,17 @@ def uploads_view(request):
             if file_name.startswith('admin/') or file_name.startswith('css/') or file_name.startswith('js/'):
                 continue
 
+            # Disallow other file types
+            if not (file_name.endswith('.pdf') or file_name.endswith('.txt') or file_name.endswith('.jpg')):
+                continue 
+
             # Fetch status from S3 object metadata
             metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
             status = metadata.get('status', 'None')
             user_id = metadata.get('user_id', 'None')
             username = metadata.get('username', 'None')
             submission_id = metadata.get('submission_id', 'None')
-
+            
             if submission_id not in files:
                 files[submission_id] = []
 
@@ -185,14 +189,33 @@ def view_submissions(request):
 
 def fileview_view(request, file_name):
     """
-    Generates a presigned URL for the file to be viewed directly in the browser.
+    Generates a presigned URL for the file to be viewed directly in the browser
+    and updates the file's status to "In-progress" if its current status is "New".
     """
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME  # Assuming your bucket name is stored in settings
+
     # Determine the MIME type based on the file extension
     mime_type = mimetypes.guess_type(file_name)[0] or 'application/octet-stream'
 
+    # Fetch current metadata to check the file's status
+    metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
+    status = metadata.get('status', 'None')
+
+    # If the status is "New", update it to "In-progress"
+    if status == 'New':
+        metadata['status'] = 'In-progress'
+        # Copy the object to itself in S3, updating the metadata
+        s3_client.copy_object(
+            Bucket=bucket_name,
+            CopySource={'Bucket': bucket_name, 'Key': file_name},
+            Key=file_name,
+            Metadata=metadata,
+            MetadataDirective='REPLACE'  # This tells S3 to replace the metadata with the new set provided
+        )
+
     # Generate the presigned URL with an inline content disposition and appropriate MIME type
     file_url = s3_client.generate_presigned_url('get_object',
-                                                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
+                                                Params={'Bucket': bucket_name,
                                                         'Key': file_name,
                                                         'ResponseContentDisposition': 'inline',
                                                         'ResponseContentType': mime_type},
