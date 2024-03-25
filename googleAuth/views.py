@@ -182,5 +182,6 @@ def view_submissions(request):
     return render(request, 'googleAuth/view_submissions.html', {'files': files})
 
 
-def fileview_view(request):
-    return render(request, 'googleAuth/fileview.html')
+def fileview_view(request, file_name):
+    context = {'file_name': file_name}
+    return render(request, 'googleAuth/fileview.html', context)
