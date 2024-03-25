@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
 from django.views.decorators.http import require_POST
+import mimetypes
 
 from .forms import CustomUserCreationForm
 import boto3
@@ -186,11 +187,15 @@ def fileview_view(request, file_name):
     """
     Generates a presigned URL for the file to be viewed directly in the browser.
     """
-    # Generate the presigned URL with an inline content disposition
+    # Determine the MIME type based on the file extension
+    mime_type = mimetypes.guess_type(file_name)[0] or 'application/octet-stream'
+
+    # Generate the presigned URL with an inline content disposition and appropriate MIME type
     file_url = s3_client.generate_presigned_url('get_object',
                                                 Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
                                                         'Key': file_name,
-                                                        'ResponseContentDisposition': 'inline'},
+                                                        'ResponseContentDisposition': 'inline',
+                                                        'ResponseContentType': mime_type},
                                                 ExpiresIn=3600)  # URL expires in 1 hour
 
     context = {'file_name': file_name, 'file_url': file_url}
