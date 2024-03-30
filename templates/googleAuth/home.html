@@ -37,6 +37,15 @@
   </style>
 </head>
 <body>
+  {% if show_warning %}
+    <script>
+      window.onload = function () {
+        alert(
+          "This is a CS3240 project. Your reports will not receive any reponse or action."
+        );
+      };
+    </script>
+    {% endif %}
   <div class="main-section">
     <h1>HoosReport</h1>
     <a href="{% url 'submit_report' %}" class="btn btn-primary">Submit Report</a>
