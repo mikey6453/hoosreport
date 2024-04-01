@@ -10,4 +10,5 @@ urlpatterns = [
     path("uploads/", views.uploads_view, name="uploads"),
     path("submitted_report/", views.submitted_report_view, name="submitted_report"),
     path("view_submissions/", views.view_submissions, name="view_submissions"),
+    path('thank_you/', views.thank_you_view, name='thank_you'),
 ]

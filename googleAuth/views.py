@@ -102,6 +102,8 @@ def uploads_view(request):
 
     return render(request, 'googleAuth/uploads.html', {'files': files})
 
+def thank_you_view(request):
+    return render(request, 'googleAuth/thank_you.html')
 
 @require_POST
 @csrf_exempt
@@ -137,7 +139,7 @@ def submitted_report_view(request):
                     text_file_name = f"text_submission_{submission_id}.txt"
                     s3_client.upload_fileobj(text_file, 'project-b-01', text_file_name, ExtraArgs={'Metadata': metadata})
 
-                return redirect('home');
+                return redirect('thank_you');
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=500)
         else:
