@@ -1,5 +1,8 @@
 {% load static %}
 {% include 'googleAuth/navbar.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +17,7 @@
     
 </head>
 <body>
-{% load static %}
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
+
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 {% bootstrap_javascript %}
     <div class="container">

@@ -202,7 +202,7 @@ def fileview_view(request, file_name):
     status = metadata.get('status', 'None')
 
     # If the status is "New", update it to "In-progress"
-    if status == 'New':
+    if status == 'New' and request.user.is_superuser:
         metadata['status'] = 'In-progress'
         # Copy the object to itself in S3, updating the metadata
         s3_client.copy_object(
