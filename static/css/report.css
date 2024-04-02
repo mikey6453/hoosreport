@@ -1,5 +1,6 @@
 body {
-    background-color: #ffffff; /* Set white background */
+    background-color: #f4f4f9 !important; /* Set white background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   .report-container {
     background-color: #ffffff; /* Set white background */
