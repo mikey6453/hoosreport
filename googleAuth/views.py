@@ -9,8 +9,16 @@ import boto3
 import io
 import uuid
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from botocore.exceptions import ClientError
+
+# Initialize the S3 client
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+)
 
 def home(request):
     user = request.user
@@ -162,17 +170,12 @@ def view_submissions(request):
         for obj in response['Contents']:
             file_name = obj['Key']
 
-            # Fetch status from S3 object metadata
             metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
             status = metadata.get('status', 'None')
             user_id = metadata.get('user_id', 'None')
             username = metadata.get('username', 'None')
             submission_id = metadata.get('submission_id', 'None')
 
-            # print(request.user.id)
-            # print(request.user.username)
-
-            # Check if the file belongs to the current user
             if user_id == str(request.user.id) and username == request.user.username:
                 if submission_id not in files:
                     files[submission_id] = []
@@ -188,38 +191,105 @@ def view_submissions(request):
 
 
 def fileview_view(request, file_name):
-    """
-    Generates a presigned URL for the file to be viewed directly in the browser
-    and updates the file's status to "In-progress" if its current status is "New".
-    """
-    bucket_name = settings.AWS_STORAGE_BUCKET_NAME  # Assuming your bucket name is stored in settings
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+    try:
+        metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
+        submission_id = metadata.get('submission_id')
+        if submission_id:
+            comment_file_name = f"comment_{submission_id}.txt"
+        else:
+            return HttpResponse("Submission ID not found.", status=404)
+    except ClientError:
+        return HttpResponse("Error fetching file metadata.", status=500)
 
-    # Determine the MIME type based on the file extension
-    mime_type = mimetypes.guess_type(file_name)[0] or 'application/octet-stream'
-
-    # Fetch current metadata to check the file's status
-    metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)['Metadata']
     status = metadata.get('status', 'None')
 
-    # If the status is "New", update it to "In-progress"
-    if status == 'New' and request.user.is_superuser:
+    if status == 'New' and request.user.is_authenticated:
         metadata['status'] = 'In-progress'
-        # Copy the object to itself in S3, updating the metadata
-        s3_client.copy_object(
-            Bucket=bucket_name,
-            CopySource={'Bucket': bucket_name, 'Key': file_name},
-            Key=file_name,
-            Metadata=metadata,
-            MetadataDirective='REPLACE'  # This tells S3 to replace the metadata with the new set provided
-        )
+        try:
+            s3_client.copy_object(
+                Bucket=bucket_name,
+                CopySource={'Bucket': bucket_name, 'Key': file_name},
+                Key=file_name,
+                Metadata=metadata,
+                MetadataDirective='REPLACE'
+            )
+        except ClientError as e:
+            print(f"Error updating file status: {e}")
 
-    # Generate the presigned URL with an inline content disposition and appropriate MIME type
-    file_url = s3_client.generate_presigned_url('get_object',
-                                                Params={'Bucket': bucket_name,
-                                                        'Key': file_name,
-                                                        'ResponseContentDisposition': 'inline',
-                                                        'ResponseContentType': mime_type},
-                                                ExpiresIn=3600)  # URL expires in 1 hour
+    if request.method == "POST":
+        text = request.POST.get('text')
+        if text:
+            try:
+                s3_client.put_object(Bucket=bucket_name, Key=comment_file_name, Body=text, ContentType='text/plain')
+                metadata['status'] = 'Resolved'
+                s3_client.copy_object(
+                    Bucket=bucket_name,
+                    CopySource={'Bucket': bucket_name, 'Key': file_name},
+                    Key=file_name,
+                    Metadata=metadata,
+                    MetadataDirective='REPLACE'
+                )
+            except ClientError as e:
+                print(f"Error uploading comment file: {e}")
 
-    context = {'file_name': file_name, 'file_url': file_url}
+    display_comment = None
+    try:
+        comment_object = s3_client.get_object(Bucket=bucket_name, Key=comment_file_name)
+        display_comment = comment_object['Body'].read().decode('utf-8')
+    except ClientError:
+        pass
+
+    file_url = generate_presigned_url(bucket_name, file_name)
+
+    context = {
+        'file_name': file_name,
+        'file_url': file_url,
+        'display_comment': display_comment,
+        'status': metadata['status']
+    }
+
     return render(request, 'googleAuth/fileview.html', context)
+
+
+def generate_presigned_url(bucket_name, file_name):
+    try:
+        return s3_client.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': bucket_name,
+                'Key': file_name,
+            },
+            ExpiresIn=3600
+        )
+    except Exception as e:
+        print(f"Error generating presigned URL: {e}")
+        return None
+    
+
+def submit_comment_view(request, submission_id):
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+    comment_file_name = f"comment_{submission_id}.txt"
+
+    if request.method == "POST":
+        comment_text = request.POST.get('text')
+        if comment_text:
+            comment_bytes = comment_text.encode('utf-8')
+            comment_file = io.BytesIO(comment_bytes)
+            comment_file_name = f"resolved_{comment_file_name}.txt"
+
+            try:
+                s3_client.upload_fileobj(
+                    comment_file, 
+                    bucket_name, 
+                    comment_file_name,
+                    ExtraArgs={'ContentType': 'text/plain'}
+                )
+            except Exception as e:
+                print(f"Error uploading comment file: {e}")
+                return HttpResponse("Error in saving the comment.", status=500)
+            return redirect('uploads')
+        else:
+            return HttpResponse("No comment provided.", status=400)
+
+    return render(request, 'path/to/comment_form.html', {'file_name': comment_file_name})
