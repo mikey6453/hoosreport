@@ -1,3 +1,4 @@
+{% load static %} 
 {% include 'googleAuth/navbar.html' %}
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
@@ -9,32 +10,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HoosReport</title>
-  <style>
-    body {
-      background-color: #2a69a8; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    }
-    .main-section {
-      min-height: 90vh; 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background-color: #adb9c2; 
-      color: #333; 
-    }
-    .main-section h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .submit-report-button {
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-  </style>
+
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
 </head>
 <body>
   <div class="main-section">
