@@ -1,0 +1,41 @@
+{% load static %}
+{% include 'googleAuth/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ file_name }}</title>
+  <link rel="stylesheet" href="{% static 'css/report.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/fileview.css' %}">
+</head>
+<body>
+  <div class="report-container">
+    <h1>{{ file_name }}</h1>
+
+    <div class="drag-image">
+      <a href="{{ file_url }}" target="_blank" class="btn btn-primary view-file-button">
+        <i class="fas fa-file"></i> View File
+      </a>
+    </div>
+
+    {% if user.is_authenticated and user.is_staff %}
+      <form action="{% url 'fileview' file_name=file_name %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="text" id="textInput" rows="4" placeholder="Provide Comments"></textarea>
+        <button type="submit" class="btn btn-success">Resolve File</button>
+    </form>
+    {% endif %}
+
+    {% if display_comment %}
+    <div class="comment-display">
+      <h3>Admin Comments</h3>
+      <p>{{ display_comment }}</p>
+    </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>
