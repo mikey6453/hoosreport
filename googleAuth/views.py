@@ -82,7 +82,7 @@ def uploads_view(request):
             file_name = obj['Key']
 
             if file_name.startswith('admin/') or file_name.startswith('css/') or file_name.startswith('js/'):
-                continue
+                return render(request, 'googleAuth/uploads.html', {'files': files})
 
             # Disallow other file types
             if not (file_name.endswith('.pdf') or file_name.endswith('.txt') or file_name.endswith('.jpg')):
