@@ -72,3 +72,18 @@ class SignupPageTests(TestCase):
         self.assertEqual(User.objects.first().username, 'newuser')
         self.assertTrue(User.objects.first().check_password('testpassword123'))
         self.assertRedirects(response, expected_url=reverse('home'), status_code=302, target_status_code=200)
+
+class UserSessionTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', email='testuser@example.com', password='password123')
+
+    def test_login_view_post(self):
+        """Test the login view with POST method."""
+        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'password123'})
+        self.assertRedirects(response, reverse('home'))
+
+    def test_logout_view(self):
+        """Test the logout functionality."""
+        self.client.login(username='testuser', password='password123')
+        response = self.client.get(reverse('logout'))
+        self.assertFalse(response.context['user'].is_authenticated)
