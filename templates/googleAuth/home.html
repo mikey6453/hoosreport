@@ -1,4 +1,4 @@
-{% load static %} 
+{% load static %}
 {% include 'googleAuth/navbar.html' %}
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
@@ -10,24 +10,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HoosReport</title>
-
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
-
 </head>
 <body>
+
+  <video class="background-video" autoplay loop muted>
+    <source src="{% static 'animations/black.mp4' %}" type="video/mp4"> <
+    {% comment %}
+      placeholder
+    {% endcomment %}
+      
+    Your browser does not support the video tag.
+  </video>
+
   {% if show_warning %}
     <script>
       window.onload = function () {
         alert(
-          "This is a CS3240 project. Your reports will not receive any reponse or action."
+          "This is a CS3240 project. Your reports will not receive any response or action."
         );
       };
     </script>
-    {% endif %}
+  {% endif %}
+  
   <div class="main-section">
-    <h1>HoosReport</h1>
-    <a href="{% url 'submit_report' %}" class="btn btn-primary">Submit Report</a>
-
+    <div class="content-box">
+      <h1>HoosReport</h1>
+      <a href="{% url 'submit_report' %}" class="btn btn-primary submit-report-button">Submit Report</a>
+    </div>
   </div>
+
 </body>
 </html>
