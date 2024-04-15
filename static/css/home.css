@@ -19,11 +19,11 @@ video.background-video {
 }
 
 .content-box {
-  padding: 40px; /* Increased padding */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
-  border-radius: 15px; /* Slightly more rounded corners for a larger box */
+  padding: 40px; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 15px; 
   display: inline-block;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .main-section {
@@ -36,23 +36,23 @@ video.background-video {
 }
 
 .main-section h1 {
-  font-size: 4rem; /* Increased font size */
+  font-size: 4rem; 
   font-weight: bold;
-  margin-bottom: 30px; /* Increased space below the heading */
+  margin-bottom: 30px; 
 }
 
 .submit-report-button {
-  padding: 15px 30px; /* Increased padding */
-  font-size: 1.5rem; /* Increased font size */
+  padding: 15px 30px; 
+  font-size: 1.5rem; 
   cursor: pointer;
-  background-color: #2a69a8; /* Bootstrap primary button color */
+  background-color: #2a69a8; 
   color: white;
-  text-decoration: none; /* Removes underline from links */
+  text-decoration: none; 
   border: none;
-  border-radius: 8px; /* More rounded button edges */
-  transition: background-color 0.3s ease; /* Smooth background color change */
+  border-radius: 8px; 
+  transition: background-color 0.3s ease; 
 }
 
 .submit-report-button:hover, .submit-report-button:focus {
-  background-color: #0056b3; /* Darker shade for hover/focus */
+  background-color: #0056b3; 
 }
