@@ -1,64 +1,85 @@
 body {
-    background-color: #f4f4f9 !important; /* Set white background */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .report-container {
-    background-color: #ffffff; /* Set white background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
-  h1 {
-    text-align: center;
-  }
-  .drag-image {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .upload-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #ffffff;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px; /* Add left margin for centering */
-  }
-  .upload-button:hover {
-    background-color: #0056b3;
-  }
-  #fileInput {
-    display: none;
-  }
-  #fileNames {
-    display: inline-block;
-    margin-top: 10px;
-    color: #000000; /* Set file name color to black */
-  }
-  #fileInputLabel {
-    display: inline-block;
-    margin-top: 10px;
-  }
-  #textInput {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
+  background-color: #f0f4f8; /* Updated background color for a modern look */
+  font-family: 'Arial', sans-serif; /* Clean and modern font */
+}
+
+.report-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 50px auto;
+  transition: all 0.3s ease;
+}
+
+h1 {
+  text-align: center;
+  color: #333; /* Dark grey for better readability */
+  margin-bottom: 30px; /* Added space below the title */
+}
+
+.drag-image {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #5D93E1; /* Modern blue gradient */
+  color: #ffffff;
+  border-radius: 30px; /* Rounded edges */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+  font-size: 16px; /* Larger font for readability */
+  box-shadow: 0 4px 14px rgba(93, 147, 225, 0.4); /* Subtle shadow for depth */
+}
+
+.upload-button:hover, button:hover {
+  background-color: #4a81d4; /* Slightly darker shade on hover */
+}
+
+#fileInput {
+  display: none;
+}
+
+#fileNames {
+  display: inline-block;
+  margin-top: 10px;
+  color: #333; /* Dark grey color for file names */
+}
+
+#textInput {
+  width: calc(100% - 20px);
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  border: 1px solid #ccc; /* Light grey border */
+  font-size: 16px; /* Larger font for readability */
+  transition: border-color 0.3s ease;
+}
+
+#textInput:focus {
+  border-color: #5D93E1; /* Highlighted border when focused */
+  box-shadow: 0 0 8px rgba(93, 147, 225, 0.5); /* Glowing effect */
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-image: linear-gradient(to right, #56CCF2, #2F80ED); /* Gradient background */
+  color: #ffffff;
+  border: none;
+  border-radius: 30px; /* Rounded edges */
+  cursor: pointer;
+  font-size: 18px; /* Larger font for readability */
+  box-shadow: 0 4px 14px rgba(47, 128, 237, 0.4); /* Subtle shadow for depth */
+}
+
+button:focus {
+  outline: none; /* Remove outline on focus */
+}

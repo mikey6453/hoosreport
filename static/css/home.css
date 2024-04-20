@@ -1,24 +1,58 @@
 body {
-    background-color: #2a69a8; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-  }
-  .main-section {
-    min-height: 90vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #adb9c2;
-    color: #333; 
-  }
-  .main-section h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  .submit-report-button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
+  margin: 0;
+  padding: 0;
+  background-color: #2a69a8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Prevents scrollbars */
+}
+
+video.background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background-size: cover;
+}
+
+.content-box {
+  padding: 40px; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 15px; 
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.main-section {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.main-section h1 {
+  font-size: 4rem; 
+  font-weight: bold;
+  margin-bottom: 30px; 
+}
+
+.submit-report-button {
+  padding: 15px 30px; 
+  font-size: 1.5rem; 
+  cursor: pointer;
+  background-color: #2a69a8; 
+  color: white;
+  text-decoration: none; 
+  border: none;
+  border-radius: 8px; 
+  transition: background-color 0.3s ease; 
+}
+
+.submit-report-button:hover, .submit-report-button:focus {
+  background-color: #0056b3; 
+}

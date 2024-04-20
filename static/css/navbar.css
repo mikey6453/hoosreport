@@ -1,17 +1,37 @@
 /* navbar.css */
 nav {
-    width: 100%;
-    position: fixed; /* Fixes navbar to the top */
-    top: 0;
-    z-index: 10; /* Ensures navbar is above other content */
-    background-color: #2a69a8; /* Bootstrap primary color, adjust as needed */
-  }
-  
-  nav .d-flex {
-    padding: 0.15rem 1rem; /* Adjust padding as needed */
-  }
-  
-  /* Adjustments for the rest of the page content */
-  body {
-    padding-top: 4rem; /* Adjust this value based on the actual height of your navbar */
-  }
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(42, 105, 168, 0.9); 
+  backdrop-filter: blur(5px); 
+}
+
+nav .d-flex {
+  padding: 0.15rem 1rem;
+  font-weight: bold;
+}
+
+nav .btn {
+  background-color: transparent; 
+  color: #ffffff; 
+  border: none; 
+  transition: color 0.3s, background-color 0.3s; 
+  padding: 0.5rem 1rem; 
+  font-weight: bold;
+}
+
+nav .btn:hover {
+  background-color: #ffffff; 
+  color: #2a69a8; 
+}
+
+
+nav, nav .btn {
+  font-family: inherit; 
+}
+
+body {
+  padding-top: 4rem; 
+}
