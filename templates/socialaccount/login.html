@@ -5,46 +5,91 @@
 {% load socialaccount %}
 {% load static %}
 
-<script src="https://kit.fontawesome.com/8c1592e798.js" crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            background-color: #62757B;
+            color: white; /* Default text color for the whole page */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<section class="vh-100">
-  <div class="container py-5 h-100">
-    <div class="row d-flex align-items-center justify-content-center h-100">
-      <div class="col-md-8 col-lg-7 col-xl-6">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-          class="img-fluid" alt="Phone image">
-      </div>
-      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form method="post" action="{% url 'login' %}"> 
-          {% csrf_token %}
-          <!-- Username input -->
-          <div class="form-outline mb-4">
-            <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" autocomplete="username" required/>
-            <label class="form-label" for="form1Example13">Username</label>
-          </div>
-        
-          <!-- Password input -->
-          <div class="form-outline mb-4">
-            <input type="password" name="password" id="form1Example23" class="form-control form-control-lg" autocomplete="new-password" required/>
-            <label class="form-label" for="form1Example23">Password</label>
-          </div>
-        
-          {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-          {% endif %}
-        
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-        </form>
-        <div class="divider d-flex align-items-center my-4">
-          <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+        .form-control {
+            background-color: #EEEEEE; /* White background for input fields */
+            color: black; /* Black text color for input */
+            border: 1px solid #ccc; /* Subtle border for inputs */
+        }
+
+        .form-control:focus {
+            border-color: #ccc; /* Consistent border color on focus */
+            outline: none; /* Removes the outline */
+            box-shadow: none; /* Removes the shadow box */
+        }
+
+        .form-label {
+            color: white; /* Ensures labels are white */
+        }
+
+        .btn {
+            background-color: #505050; /* Background for buttons */
+            color: #EEEEEE; /* Text color for buttons */
+        }
+
+        .btn:hover {
+            background-color: #696969; /* Lighter gray for hover */
+        }
+    </style>
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/login-4489776-3757211.png?f=webp"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <h2 style="color: #EEEEEE; padding-bottom: 30px;">User Login</h2>
+                        <!-- Username input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" name="username" id="username" class="form-control form-control-lg" required autocomplete="username" style="background-color: #EEEEEE; color: black;"/>
+                            <label class="form-label" for="username">Username</label>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <input type="password" name="password" id="password" class="form-control form-control-lg" required autocomplete="new-password" style="background-color: #EEEEEE; color: black;"/>
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    </form>
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                    </div>
+                    <a href="{% provider_login_url 'google' %}?next=/"
+                        class="btn btn-primary btn-lg btn-block"
+                        style="background-color: #32ba6d"
+                        role="button">
+                            <i class="fab fa-google me-2"></i>Continue with Google</a>
+                </div>
+            </div>
         </div>
-        <a href="{% provider_login_url 'google' %}?next=/"
-          class="btn btn-primary btn-lg btn-block"
-          style="background-color: #32ba6d"
-          role="button">
-              <i class="fab fa-google me-2"></i>Continue with Google</a>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
+</body>
+</html>
