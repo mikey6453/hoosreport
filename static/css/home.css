@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #2a69a8;
+  background-color: #696969;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden; /* Prevents scrollbars */
 }
@@ -20,7 +20,7 @@ video.background-video {
 
 .content-box {
   padding: 40px; 
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255,255,255,0.75);
   border-radius: 15px; 
   display: inline-block;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
@@ -45,7 +45,7 @@ video.background-video {
   padding: 15px 30px; 
   font-size: 1.5rem; 
   cursor: pointer;
-  background-color: #2a69a8; 
+  background-color: #505050;
   color: white;
   text-decoration: none; 
   border: none;
@@ -53,6 +53,13 @@ video.background-video {
   transition: background-color 0.3s ease; 
 }
 
-.submit-report-button:hover, .submit-report-button:focus {
-  background-color: #0056b3; 
+.submit-report-button:focus, .submit-report-button:active {
+    background-color: #696969 !important; /* Darker grey for focus and active states */
 }
+
+.btn-primary.submit-report-button:hover {
+    background-color: #696969; /* Fallback if variable isn't set */
+    color: var(--bs-btn-hover-color, #ffffff); /* Fallback if variable isn't set */
+}
+
+

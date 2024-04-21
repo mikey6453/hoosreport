@@ -1,13 +1,13 @@
 body {
-  background-color: #f0f4f8; /* Updated background color for a modern look */
-  font-family: 'Arial', sans-serif; /* Clean and modern font */
+  background-color: #191919; /* Updated background color for a modern look */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean and modern font */
 }
 
 .report-container {
-  background-color: #ffffff;
+  background-color: rgba(255,255,255,0.9);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   margin: 50px auto;
   transition: all 0.3s ease;
@@ -15,8 +15,9 @@ body {
 
 h1 {
   text-align: center;
-  color: #333; /* Dark grey for better readability */
+  color: #212529; /* Dark grey for better readability */
   margin-bottom: 30px; /* Added space below the title */
+  font-weight: bold;
 }
 
 .drag-image {
@@ -27,7 +28,7 @@ h1 {
 .upload-button {
   display: inline-block;
   padding: 15px 30px;
-  background-color: #5D93E1; /* Modern blue gradient */
+  background-color: #454545; /* Modern blue gradient */
   color: #ffffff;
   border-radius: 30px; /* Rounded edges */
   cursor: pointer;
@@ -35,11 +36,11 @@ h1 {
   border: none; /* Remove border */
   outline: none; /* Remove outline */
   font-size: 16px; /* Larger font for readability */
-  box-shadow: 0 4px 14px rgba(93, 147, 225, 0.4); /* Subtle shadow for depth */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .upload-button:hover, button:hover {
-  background-color: #4a81d4; /* Slightly darker shade on hover */
+  background-color: #696969; /* Slightly darker shade on hover */
 }
 
 #fileInput {
@@ -57,27 +58,27 @@ h1 {
   padding: 15px;
   margin-bottom: 30px;
   border-radius: 10px;
-  border: 1px solid #ccc; /* Light grey border */
+  border: 1px solid #696969; /* Light grey border */
   font-size: 16px; /* Larger font for readability */
   transition: border-color 0.3s ease;
 }
 
 #textInput:focus {
-  border-color: #5D93E1; /* Highlighted border when focused */
-  box-shadow: 0 0 8px rgba(93, 147, 225, 0.5); /* Glowing effect */
+  border-color: #696969; /* Highlighted border when focused */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Glowing effect */
 }
 
 button {
   display: block;
   width: 100%;
   padding: 15px;
-  background-image: linear-gradient(to right, #56CCF2, #2F80ED); /* Gradient background */
+  background-color: #454545;
   color: #ffffff;
   border: none;
   border-radius: 30px; /* Rounded edges */
   cursor: pointer;
   font-size: 18px; /* Larger font for readability */
-  box-shadow: 0 4px 14px rgba(47, 128, 237, 0.4); /* Subtle shadow for depth */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 button:focus {

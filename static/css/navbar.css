@@ -4,7 +4,7 @@ nav {
   position: fixed;
   top: 0;
   z-index: 10;
-  background-color: rgba(42, 105, 168, 0.9);
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
 }
 
@@ -23,10 +23,9 @@ nav .btn {
 }
 
 nav .btn:hover {
-  background-color: #ffffff;
-  color: #2a69a8;
+  background-color: rgba(255,255,255,0.1);
+  color: #FFFFFF;
 }
-
 
 nav, nav .btn {
   font-family: inherit; 
