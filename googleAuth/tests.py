@@ -53,12 +53,17 @@ class SignupPageTests(TestCase):
     def test_signup_form_error(self):
         """The signup form shows appropriate errors for invalid data."""
         response = self.client.post(reverse('signup'), data={
-            'username': '',
+            'username': '',  # Missing username should trigger form error
             'email': 'user@example.com',
             'password1': 'testpassword123',
-            'password2': 'testpassword123',
-        })
-        self.assertFormError(response, 'form', 'username', 'This field is required.')
+          'password2': 'testpassword123',
+         })
+        form = response.context['form'] 
+        self.assertTrue(form.is_bound)  
+        self.assertFalse(form.is_valid())  
+        self.assertIn('username', form.errors) 
+        self.assertFormError(response, 'form', 'username', 'This field is required.')  
+
 
     def test_signup_success(self):
         """A new user is created successfully through the signup form."""
