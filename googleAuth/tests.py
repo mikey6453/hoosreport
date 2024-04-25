@@ -56,13 +56,17 @@ class SignupPageTests(TestCase):
             'username': '',  # Missing username should trigger form error
             'email': 'user@example.com',
             'password1': 'testpassword123',
-          'password2': 'testpassword123',
-         })
-        form = response.context['form'] 
+            'password2': 'testpassword123',
+        })
+        self.assertTrue('form' in response.context)  
+        form = response.context['form']  
+
         self.assertTrue(form.is_bound)  
         self.assertFalse(form.is_valid())  
-        self.assertIn('username', form.errors) 
-        self.assertFormError(response, 'form', 'username', 'This field is required.')  
+        self.assertIn('username', form.errors)  
+
+        self.assertFormError(form, 'username', 'This field is required.')
+ 
 
 
     def test_signup_success(self):
