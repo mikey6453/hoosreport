@@ -31,16 +31,18 @@ h1 {
   background-color: #454545; /* Modern blue gradient */
   color: #ffffff;
   border-radius: 30px; /* Rounded edges */
+  border:solid;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: none; /* Remove border */
-  outline: none; /* Remove outline */
+  border-color: #454545;
   font-size: 16px; /* Larger font for readability */
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .upload-button:hover, button:hover {
+  border: solid !important;
   background-color: #696969; /* Slightly darker shade on hover */
+  border-color: #FFFFFF !important;
 }
 
 #fileInput {

@@ -1,5 +1,6 @@
 body {
-    background-color: #f4f4f9 !important; /* Light gray background for a softer look */
+    background-color: #62757B !important; /* Light gray background for a softer look */
+    color:white;
 }
 .container {
     padding-top: 2rem; /* Adds some space on the top */
@@ -15,4 +16,16 @@ body {
 /* Align status to the right */
 .status-column {
     text-align: right;
+}
+
+.btn-primary {
+    background-color: #505050;
+}
+
+.btn-primary:hover {
+    background-color:#696969;
+}
+
+btn btn-primary btn-sm:hover {
+    background-color: #696969;
 }

@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="{% static 'css/uploads.css' %}">
 
 </head>
-<body>
+<body style = "background-color: #62757B; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 {% bootstrap_javascript %}
-    <div class="container">
-        <h1 class="mb-4 text-center">List of Files</h1>
+    <div class="container" style = "background-color: #62757B;">
+        <h1 class="mb-4 text-center" style = "color: white;">List of Files</h1>
         <div class="card">
             <ul class="list-group list-group-flush">
                 <!-- Column headers -->
@@ -47,7 +47,7 @@
                         <div class="col">{{ file.username }}</div>
                         <div class="col text-end">
                             <div class="d-flex ms-auto me-2">
-                                <a href="{% url 'fileview' file.name %}" class="btn btn-primary btn-sm">Report Status</a>
+                                <a href="{% url 'fileview' file.name %}" class="btn btn-primary btn-sm" style = "background-color: #505050; border-color: #505050;">Report Status</a>
                             </div>
                         </div>
                     </div>

@@ -47,19 +47,20 @@ video.background-video {
   cursor: pointer;
   background-color: #505050;
   color: white;
-  text-decoration: none; 
-  border: none;
+  text-decoration: none;
   border-radius: 8px; 
   transition: background-color 0.3s ease; 
 }
 
 .submit-report-button:focus, .submit-report-button:active {
     background-color: #696969 !important; /* Darker grey for focus and active states */
+    border-color: #FFFFFF;
 }
 
 .btn-primary.submit-report-button:hover {
     background-color: #696969; /* Fallback if variable isn't set */
     color: var(--bs-btn-hover-color, #ffffff); /* Fallback if variable isn't set */
+    border-color:#FFFFFF;
 }
 
 
