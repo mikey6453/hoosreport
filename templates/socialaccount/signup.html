@@ -7,31 +7,85 @@
 {% bootstrap_javascript %}
 
 {% include 'googleAuth/navbar.html' %}
-<script src="https://kit.fontawesome.com/8c1592e798.js" crossorigin="anonymous"></script>
 
-<section class="vh-100">
-  <div class="container py-5 h-100">
-    <div class="row d-flex align-items-center justify-content-center h-100">
-      <div class="col-md-8 col-lg-7 col-xl-6">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
-      </div>
-      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form method="post" action="{% url 'socialaccount_signup' %}">
-          {% csrf_token %}
-          <div class="form-outline mb-4">
-            <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" autocomplete="username" required/>
-            <label class="form-label" for="form1Example13">{% trans "Choose Your Username" %}</label>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            background-color: #62757B;
+            color: white; /* Default text color for the whole page */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-control {
+            background-color: #EEEEEE; /* White background for input fields */
+            color: black; /* Black text color for input */
+            border: 1px solid #ccc; /* Subtle border for inputs */
+        }
+
+        .form-control:focus {
+            border-color: #ccc; /* Consistent border color on focus */
+            outline: none; /* Removes the outline */
+            box-shadow: none; /* Removes the shadow box */
+        }
+
+        .form-label {
+            color: white; /* Ensures labels are white */
+        }
+
+        .btn {
+            background-color: #505050; /* Background for buttons */
+            color: #EEEEEE; /* Text color for buttons */
+        }
+
+        .btn:hover {
+            background-color: #696969; /* Lighter gray for hover */
+            border-color:#696969;
+        }
+
+        .btn-primary {
+            border-color: #696969;
+        }
+
+    </style>
+  </head>
+  <body>
+    <script src="https://kit.fontawesome.com/8c1592e798.js" crossorigin="anonymous"></script>
+
+    <section class="vh-100">
+      <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="col-md-8 col-lg-7 col-xl-6">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
           </div>
-          
-          <!-- Include additional fields as necessary -->
-          {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-          {% endif %}
-          <button type="submit" class="btn btn-primary btn-lg btn-block">{% trans "Sign Up" %}</button>
-        </form>
-    </div>
-  </div>
-</section>
+          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <form method="post" action="{% url 'socialaccount_signup' %}">
+              {% csrf_token %}
+              <div class="form-outline mb-4">
+                <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" autocomplete="username" required/>
+                <label class="form-label" for="form1Example13">{% trans "Choose Your Username" %}</label>
+              </div>
+              
+              <!-- Include additional fields as necessary -->
+              {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+              {% endif %}
+              <button type="submit" class="btn btn-primary btn-lg btn-block">{% trans "Sign Up" %}</button>
+            </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
