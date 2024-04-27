@@ -207,7 +207,8 @@ def fileview_view(request, file_name):
     status = metadata.get('status', 'None')
 
     if status == 'New' and request.user.is_authenticated:
-        metadata['status'] = 'In-progress'
+        if request.user.is_superuser:
+            metadata['status'] = 'In-progress'
         try:
             s3_client.copy_object(
                 Bucket=bucket_name,
