@@ -207,7 +207,8 @@ def fileview_view(request, file_name):
     status = metadata.get('status', 'None')
 
     if status == 'New' and request.user.is_authenticated:
-        metadata['status'] = 'In-progress'
+        if request.user.is_superuser:
+            metadata['status'] = 'In-progress'
         try:
             s3_client.copy_object(
                 Bucket=bucket_name,
@@ -220,21 +221,21 @@ def fileview_view(request, file_name):
             print(f"Error updating file status: {e}")
 
     if request.method == "POST":
-        text = request.POST.get('text')
-        if text:
-            try:
-                s3_client.put_object(Bucket=bucket_name, Key=comment_file_name, Body=text, ContentType='text/plain')
-                metadata['status'] = 'Resolved'
-                s3_client.copy_object(
-                    Bucket=bucket_name,
-                    CopySource={'Bucket': bucket_name, 'Key': file_name},
-                    Key=file_name,
-                    Metadata=metadata,
-                    MetadataDirective='REPLACE'
-                )
-            except ClientError as e:
-                print(f"Error uploading comment file: {e}")
 
+        text = request.POST.get('text')
+        metadata['status'] = 'Resolved'
+        try:
+            s3_client.put_object(Bucket=bucket_name, Key=comment_file_name, Body=text, ContentType='text/plain')
+            s3_client.copy_object(
+                Bucket=bucket_name,
+                CopySource={'Bucket': bucket_name, 'Key': file_name},
+                Key=file_name,
+                Metadata=metadata,
+                MetadataDirective='REPLACE'
+            )
+        except ClientError as e:
+            print(f"Error uploading comment file: {e}")
+        
     display_comment = None
     try:
         comment_object = s3_client.get_object(Bucket=bucket_name, Key=comment_file_name)
