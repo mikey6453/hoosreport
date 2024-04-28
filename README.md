@@ -25,9 +25,20 @@ To run the application locally on your machine, follow these steps:
 
     pip install -r requirements.txt
 
-3. **Create a Superuser**
+3. **Creating Users**
 
-    python3 manage.py createsuperuser
+   There are three types of user accounts you can create:
+
+   - **Regular User:** To create a regular user, simply sign up on the website using either the regular sign-up form or through Google authentication.
+
+   - **Django Admin:** To create a Django admin user, run the following command in your local development environment:
+     ```
+     python3 manage.py createsuperuser
+     ```
+     Follow the prompts to set up the username, email, and password.
+
+   - **Site Admin:** To upgrade an existing user to a site admin, you must first have Django admin access. Log in to the Django admin panel, navigate to the 'Users' section, and select the regular user you wish to upgrade. Check the 'superuser status' box and click 'Save' to grant them site admin privileges.
+
 
 4. **Configure the Site in Django Admin Settings**
 
