@@ -88,7 +88,7 @@
 </head>
 <body>
     <section class="vh-100">
-        <div class="container py-5 h-100">
+        <div class="container py-5 h-100 mt-2">
             <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-8 col-lg-7 col-xl-6">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
@@ -108,7 +108,7 @@
                     {% endif %}
 
                     <!-- Username input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-2">
                         <input type="text" name="username" id="username" class="form-control form-control-lg" autocomplete="username" required value="{{ form.username.value|default_if_none:'' }}" style="background-color: #EEEEEE; color: black; border-color: #EEEEEE;"/>
                         <label class="form-label" for="username">Username</label>
                         {% if form.username.errors %}
@@ -117,7 +117,7 @@
                     </div>
 
                     <!-- Email input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-2">
                         <input type="email" name="email" id="email" class="form-control form-control-lg" autocomplete="email" required value="{{ form.email.value|default_if_none:'' }}" style="background-color: #EEEEEE; color: black; border-color: #EEEEEE;"/>
                         <label class="form-label" for="email">Email</label>
                         {% if form.email.errors %}
@@ -126,7 +126,7 @@
                     </div>
 
                     <!-- Password input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-2">
                         <input type="password" name="password1" id="password1" class="form-control form-control-lg" autocomplete="new-password" required style="background-color: #EEEEEE; color: black; border-color: #EEEEEE;"/>
                         <label class="form-label" for="password1">Password</label>
                         {% if form.password1.errors %}
@@ -135,7 +135,7 @@
                     </div>
 
                     <!-- Password Confirmation input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-2">
                         <input type="password" name="password2" id="password2" class="form-control form-control-lg" autocomplete="new-password" required style="background-color: #EEEEEE; color: black; border-color: #EEEEEE;"/>
                         <label class="form-label" for="password2">Confirm Password</label>
                         {% if form.password2.errors %}

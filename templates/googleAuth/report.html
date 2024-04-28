@@ -42,7 +42,7 @@ h1 {
     <h1>Report Submission</h1>
 
     <!-- Form for both file upload and text submission -->
-    <form id="submissionForm" action="{% url 'submitted_report' %}" method="post" enctype="multipart/form-data">
+    <form id="submissionForm" action="{% url 'submitted_report' %}" method="post" enctype="multipart/form-data" class="justify-content-center">
       {% csrf_token %}
       <div class="drag-image">
         <label for="fileInput" id="fileInputLabel" class="upload-button">
@@ -52,7 +52,7 @@ h1 {
         <input type="file" name="file" id="fileInput" style="display: none;" multiple onchange="displayFileNames()">
         <span id="fileNames"></span>
       </div>
-      <textarea name="text" id="textInput" rows="4" placeholder="Enter your text here"></textarea>
+      <textarea name="text" id="textInput" rows="4" placeholder="Enter your text here" class="w-100"></textarea>
       <button type="button" onclick="submitForm()">Submit</button>
     </form>
   </div>
