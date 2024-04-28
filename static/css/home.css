@@ -1,10 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #505050;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden; /* Prevents scrollbars */
-}
+
 
 video.background-video {
   position: fixed;
@@ -35,11 +29,6 @@ video.background-video {
   text-align: center;
 }
 
-.main-section h1 {
-  font-size: 4rem; 
-  font-weight: bold;
-  margin-bottom: 30px; 
-}
 
 .submit-report-button {
   padding: 15px 30px; 
@@ -54,13 +43,22 @@ video.background-video {
 
 .submit-report-button:focus, .submit-report-button:active {
     background-color: #696969 !important; /* Darker grey for focus and active states */
-    border-color: #FFFFFF;
+    border-color: #696969;
 }
 
 .btn-primary.submit-report-button:hover {
     background-color: #696969; /* Fallback if variable isn't set */
     color: var(--bs-btn-hover-color, #ffffff); /* Fallback if variable isn't set */
-    border-color:#FFFFFF;
+    border-color:#696969;
 }
 
+.btn-primary {
+    border-color: #696969;
+}
+
+h1{
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
 
