@@ -1,6 +1,8 @@
 body {
   background-color: #62757B; /* Updated background color for a modern look */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean and modern font */
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 .report-container {
@@ -31,7 +33,6 @@ h1 {
   background-color: #454545; /* Modern blue gradient */
   color: #ffffff;
   border-radius: 30px; /* Rounded edges */
-  border:solid;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-color: #454545;
@@ -40,9 +41,8 @@ h1 {
 }
 
 .upload-button:hover, button:hover {
-  border: solid !important;
   background-color: #696969; /* Slightly darker shade on hover */
-  border-color: #FFFFFF !important;
+
 }
 
 #fileInput {

@@ -1,9 +1,9 @@
 {% include 'googleAuth/navbar.html' %}
+{% load static %}
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load socialaccount %}
-{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         body, html {
             padding: 0;
@@ -19,9 +21,16 @@
             height: 100%;
             background-color: #62757B;
             color: white; /* Default text color for the whole page */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Roboto", sans-serif;
+            font-weight: 300;
+            font-style: normal;
         }
 
+        h2 {
+        font-family: "Roboto", sans-serif;
+                  font-weight: bold;
+                  font-style: normal;
+        }
         .form-control {
             background-color: #EEEEEE; /* White background for input fields */
             color: black; /* Black text color for input */
@@ -43,13 +52,32 @@
             color: #EEEEEE; /* Text color for buttons */
         }
 
-        .btn:hover {
-            background-color: #696969; /* Lighter gray for hover */
-            border-color:#696969;
+        .btn:hover, .btn:active {
+            background-color: #696969 !important; /* Lighter gray for hover */
+            border-color:#696969 !important;
         }
 
         .btn-primary {
             border-color: #696969;
+        }
+
+        .btn-primary:active {
+        background-color: #696969 !important; /* Lighter gray for hover */
+            border-color:#696969 !important;
+        }
+
+        .google-btn {
+            background-color: #32ba6d; /* Normal state background */
+            border-color: #32ba6d;
+        }
+
+        .google-btn:hover {
+            background-color: #4cf997 !important; /* Hover state background */
+            border-color: #32ba6d;
+        }
+
+        p {
+            color: white;
         }
 
     </style>
@@ -86,13 +114,14 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
                     </form>
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        <p class="text-center fw-bold mx-3 mb-0 text-muted" style = "color: white !important;">OR</p>
                     </div>
                     <a href="{% provider_login_url 'google' %}?next=/"
-                        class="btn btn-primary btn-lg btn-block"
-                        style="background-color: #32ba6d"
-                        role="button">
-                            <i class="fab fa-google me-2"></i>Continue with Google</a>
+                        class="btn btn-primary btn-lg btn-block google-btn"
+                        role="button"> <!-- Correct use for accessibility, should not be visible -->
+                        <i class="fab fa-google me-2"></i>Continue with Google
+                    </a>
+
                 </div>
             </div>
         </div>

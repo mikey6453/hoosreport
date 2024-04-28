@@ -14,23 +14,25 @@ nav .d-flex {
 }
 
 nav .btn {
-  background-color: transparent; 
-  color: #ffffff; 
-  border: none; 
-  transition: color 0.3s, background-color 0.3s; 
-  padding: 0.5rem 1rem; 
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 0.5rem 1rem;
   font-weight: bold;
 }
 
-nav .btn:hover {
-  background-color: rgba(255,255,255,0.1);
+nav .btn:hover, nav .btn:focus, nav .btn:active {
+  background-color: rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
+  outline: none; /* Removes the outline that might appear on focus */
 }
 
+
 nav, nav .btn {
-  font-family: inherit; 
+  font-family: inherit;
 }
 
 body {
-  padding-top: 4rem; 
+  padding-top: 4rem;
 }
