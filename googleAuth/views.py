@@ -12,6 +12,7 @@ from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from botocore.exceptions import ClientError
+import json
 
 # Initialize the S3 client
 s3_client = boto3.client(
@@ -208,36 +209,44 @@ def submitted_report_view(request):
 
 @login_required
 def view_submissions(request):
-    bucket_name = "project-b-01"
-    response = s3_client.list_objects_v2(Bucket=bucket_name)
-    files = {}
+    if not request.user.is_authenticated:
+        return redirect("home")
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        bucket_name = "project-b-01"
+        response = s3_client.list_objects_v2(Bucket=bucket_name)
+        files = {}
 
-    if "Contents" in response:
-        for obj in response["Contents"]:
-            file_name = obj["Key"]
+        if "Contents" in response:
+            for obj in response["Contents"]:
+                file_name = obj["Key"]
+                metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)[
+                    "Metadata"
+                ]
+                status = metadata.get("status", "None")
+                user_id = metadata.get("user_id", "None")
+                username = metadata.get("username", "None")
+                submission_id = metadata.get("submission_id", "None")
 
-            metadata = s3_client.head_object(Bucket=bucket_name, Key=file_name)[
-                "Metadata"
-            ]
-            status = metadata.get("status", "None")
-            user_id = metadata.get("user_id", "None")
-            username = metadata.get("username", "None")
-            submission_id = metadata.get("submission_id", "None")
+                if (
+                    user_id == str(request.user.id)
+                    and username == request.user.username
+                ):
+                    if submission_id not in files:
+                        files[submission_id] = []
 
-            if user_id == str(request.user.id) and username == request.user.username:
-                if submission_id not in files:
-                    files[submission_id] = []
+                    files[submission_id].append(
+                        {
+                            "name": file_name,
+                            "status": status,
+                            "user_id": user_id,
+                            "username": username,
+                        }
+                    )
 
-                files[submission_id].append(
-                    {
-                        "name": file_name,
-                        "status": status,
-                        "user_id": user_id,
-                        "username": username,
-                    }
-                )
+        return JsonResponse(files)
 
-    return render(request, "googleAuth/view_submissions.html", {"files": files})
+    # Return the initial page template if it's not an AJAX request
+    return render(request, "googleAuth/view_submissions.html")
 
 
 def fileview_view(request, file_name):

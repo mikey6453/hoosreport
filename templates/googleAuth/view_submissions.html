@@ -1,83 +1,153 @@
-{% load static %}
-{% include 'googleAuth/navbar.html' %}
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
-{% include 'googleAuth/footer.html' %}
+{% load static %} {% include 'googleAuth/navbar.html' %} {% load django_bootstrap5 %} {% bootstrap_css %} {% include 'googleAuth/footer.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Files</title>
-    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>List Files</title>
+        <link rel="stylesheet" href="{% static 'css/upload.css' %}" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
 
-    <link rel="stylesheet" href="{% static 'css/view_submissions.css' %}">
+        <link rel="stylesheet" href="{% static 'css/view_submissions.css' %}" />
 
-    <style>
+        <style>
+            body {
+                font-family: "Roboto", sans-serif;
+                font-weight: 300;
+                font-style: normal;
+            }
 
-        body{
-        font-family: "Roboto", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        }
+            h1 {
+                font-family: "Roboto", sans-serif;
+                font-weight: bold;
+                font-style: normal;
+            }
 
-        h1 {
-            font-family: "Roboto", sans-serif;
-        font-weight: bold;
-        font-style: normal;
-        }
+            .btn-primary:hover {
+                background-color: #696969 !important;
+            }
+            .loading {
+                position: fixed;
+                z-index: 999;
+                overflow: show;
+                margin: auto;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: url("../../static/animations/output-onlinegiftools.gif") center
+                    center no-repeat;
+                background-size: 200px 200px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        .btn-primary:hover {
-            background-color: #696969 !important;
-           }
-    </style>
-    
-</head>
-<body>
+        <script>
+            $(document).ready(function () {
+                // Display the loader
+                $("#loadingScreen").show();
+                var submissionUrl = "{% url 'view_submissions' %}";
+                $.ajax({
+                    url: submissionUrl, // The same URL – Django will handle the differentiation
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#loadingScreen").hide();
+                        var submissionsContainer = $(
+                            "#submissionsContainer .list-group"
+                        );
 
-<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-{% bootstrap_javascript %}
-    <div class="container">
-        <h1 class="mb-4 text-center" style = "color: white;">Your Submissions</h1>
-        <div class="card">
-            <ul class="list-group list-group-flush">
-                <!-- Column headers -->
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col"><b>File Name</b></div>
-                        <div class="col"><b>Status</b></div>
-                        <div class="col"><b>User ID</b></div>
-                        <div class="col"><b>Username</b></div>
-                        <div class="col"><b>View Report</b></div>
-                    </div>
-                </li>
+                        $.each(data, function (submissionId, files) {
+                            $.each(files, function (index, file) {
+                                // Create HTML for each file
+                                var fileHtml =
+                                    '<li class="list-group-item">' +
+                                    '<div class="row">' +
+                                    `<div class="col">${file.name}</div>` +
+                                    `<div class="col">${file.status}</div>` +
+                                    `<div class="col">${file.user_id}</div>` +
+                                    `<div class="col">${file.username}</div>` +
+                                    `<div class="col"><a href="/fileview/${file.name}" class="btn btn-primary btn-sm" style="background-color: #505050; border-color: #505050;">View Report</a></div>` +
+                                    "</div>" +
+                                    "</li>";
 
-                <!-- File data -->
-                {% for submission_id, submission_files in files.items %}
-                <li class="list-group-item">
-                    <!-- <div class="row">
+                                // Append to the container
+                                submissionsContainer.append(fileHtml);
+                            });
+                        });
+                    },
+                    error: function (error) {
+                        console.warn("Error fetching submissions:", error);
+                        $("#loadingScreen").hide();
+                    },
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="loadingScreen" class="loading"></div>
+        <div id="submissionsContainer">
+            <!-- Dynamic content will be loaded here -->
+
+            <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+            {% bootstrap_javascript %}
+            <div class="container">
+                <h1 class="mb-4 text-center" style="color: white">
+                    Your Submissions
+                </h1>
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <!-- Column headers -->
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col"><b>File Name</b></div>
+                                <div class="col"><b>Status</b></div>
+                                <div class="col"><b>User ID</b></div>
+                                <div class="col"><b>Username</b></div>
+                                <div class="col"><b>View Report</b></div>
+                            </div>
+                        </li>
+
+                        <!-- File data -->
+                        {% for submission_id, submission_files in files.items %}
+                        <li class="list-group-item">
+                            <!-- <div class="row">
                         <div class="col-12 mb-3"><b>Submission ID: {{ submission_id }}</b></div>
                     </div> -->
-                    {% for file in submission_files %}
-                    <div class="row">
-                        <div class="col">{{ file.name }}</div>
-                        <div class="col">{{ file.status }}</div>
-                        <div class="col">{{ file.user_id }}</div>
-                        <div class="col">{{ file.username }}</div>
-                        <div class="col">
-                            <a href="{% url 'fileview' file.name %}" class="btn btn-primary btn-sm" style = "background-color: #505050; border-color: #505050;">View Report</a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </li>
-                {% endfor %}
-            </ul>
+                            {% for file in submission_files %}
+                            <div class="row">
+                                <div class="col">{{ file.name }}</div>
+                                <div class="col">{{ file.status }}</div>
+                                <div class="col">{{ file.user_id }}</div>
+                                <div class="col">{{ file.username }}</div>
+                                <div class="col">
+                                    <a
+                                        href="{% url 'fileview' file.name %}"
+                                        class="btn btn-primary btn-sm"
+                                        style="
+                                            background-color: #505050;
+                                            border-color: #505050;
+                                        "
+                                        >View Report</a
+                                    >
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
